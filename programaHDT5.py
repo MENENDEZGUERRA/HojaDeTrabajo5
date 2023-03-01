@@ -1,4 +1,5 @@
 import simpy
+import numpy as np
 from random import randint
 #This code will change for adding process time 
 
@@ -96,19 +97,18 @@ def RunSystem(env,ram,cpuInstructions,interval,processQt):
             except:
                 pass
 
-        if mainSystem.ram == 100:
+        if len(proceduresTimes)==processQt:
             print("Process done")
             print(proceduresTimes)
             print(len(proceduresTimes))
             print("STADISTICS")
+            print("Desviación Estandar: "+ str(np.std(proceduresTimes)))
+            print("Media: "+str(np.mean(proceduresTimes)))
             #proceduresTimes list contains all data of the time that each process has taken.
             break
         yield env.timeout(1)
 
 env = simpy.Environment()
 #def RunSystem(env,ram,cpuInstructions,interval,processQt):
-env.process(RunSystem(env,100,3,5,200))
+env.process(RunSystem(env,100,3,1,25))
 env.run() #Until
-
-
-
